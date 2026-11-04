@@ -12,3 +12,13 @@
             text-align: center;
             background-color: rgb(115, 191, 108);
         }
+    ol {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    ul {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
