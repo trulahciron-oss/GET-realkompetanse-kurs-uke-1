@@ -5,19 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>første side</title>
     <link rel="stylesheet" href="style.css">
+
     <style>
         li {
             color:rgba(145, 16, 219, 0.84);
             font-family:
                  roboto, sans-serif;
             font-size: 17px;
-            background-color: rgb(144, 139, 139);
+            background-color: rgb(132, 185, 222);
         }
-       
-
+        #trykkpåknapp {
+            display: none;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+        }
         
-    </style>
-
+       
+        
+        </style>
+  <!--margin-top: 15px; border-radius: 9px; max-width: 100%; gjorde at bilde ble kuttet på toppen-->
+  <!-- i suprisetroll, object-fit cover kutter hodet i fullscreen. fiks= contain-->
+  
 </head>
 <body>
 
@@ -39,12 +49,23 @@
         kfdøbvøherbvbdofibgdhsfjhfghd567
     </p>
 
-    <a href="https://www.google.com/" target="_blank">SØK</a> 
-    <button>her</button>
-    </div>
+    <div class="googlesearch">
+     <a class="active" href="#home"></a>
+     <a href="#about"></a>
+    
 
-    <!--hvordan får dotten i midten?(CSS, <ul>) annen farge en grå bare i boksen?-->
-    <div class="wall">
+    <form action="https://google.com" method="get" class="search-form" target="blank">
+    <input type="text" name="q" placeholder="Search Google..">
+    <button>GO</button>
+    </form>
+    </div>  
+
+   
+
+    <!-- feil 1(fikset)hvordan får dotten i midten? gjøres i CSS, <ul>-->
+    <!-- bildelink, scaler ikke fult opp, -->
+    
+        <div class="wall">
      <H2>BIPPETI</H2>
      <ul>
         <li>hei hei</li>
@@ -55,23 +76,54 @@
             hsghsthsghsthsghsths
             hsghshsghsghsthtshghsthsrths dgt gfhdahsrh 
         </p>
-        <input type="checkbox">
-        <button>klikk klikk</button>
-     </li>
+        <input type="checkbox" id="togglecheckbox">
+        <button id="trykkpåknapp">klikk klikk</button>
+        <img id="suprisetroll" src="https://static.wikia.nocookie.net/valheim/images/4/43/Screenshot_2021-05-18_9.27.56_AM.png/revision/latest/smart/width/250/height/250?cb=20210518132953" alt="suprisetroll">
     </div>
+   
 
 
-    <!--hvordan få rangeringen i midten?(CSS, <ol>) annen farge en grå bare i boksen?-->
+    <!--feil2(fikset) hvordan få rangeringen i midten? gjøres i CSS, <ol>-->
     <div class="list">
-    <h2>lists</h2>
+    <h2>handle liste</h2>
     <ol>
-        <li>items 1</li>
-        <li>items 2</li>
-        <li>items 3</li>
+        <li>potet</li>
+        <li>kotteletter</li>
+        <li>gulrot</li>
+        <li>krydder</li>
+        <li>løk</li>
     </ol>
-
     </div>
 
+    <!--  feil 3(fikset)knappen blir borte selv når den er huket av når jeg reloader siden: (lag en if regel at den sjekker scriptet når siden reloads)-->
+    <script>
+        const checkbox = document.getElementById('togglecheckbox');
+        const button = document.getElementById('trykkpåknapp');
+        checkbox.addEventListener ('change', function() {
+            if (this.checked) {
+                button.style.display = 'inline-block';
+            }
+            else{
+                button.style.display = 'none';
+            }
+        });
+    <!-- feil3 fiks her-->
+        if (checkbox.checked) {
+            button.style.display = 'inline-block';
+        }
+        
+        const bildeknapp = document.getElementById('trykkpåknapp');
+        const suprisetroll = document.getElementById('suprisetroll');
+
+        bildeknapp.addEventListener('click', function() {
+            if (suprisetroll.style.display === 'block') {
+                suprisetroll.style.display = 'none';
+        } else {
+                suprisetroll.style.display = 'block';
+        }
+        });
+    </script>
+ 
      
      
 </body>

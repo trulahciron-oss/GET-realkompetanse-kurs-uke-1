@@ -1,24 +1,50 @@
- #bilde{ width:300px;height: 170px; border-radius:40%}
-    .card{
-            border: 0.5cm solid rgb(29, 29, 200);
+    #bilde{ width:300px;height: 170px; border-radius:40%}
+
+    .card{border: 0.1cm solid rgb(29, 29, 200);
             text-align: center;
             background-color: rgb(132, 185, 222);
         }
-    .wall{border: 0.5cm solid rgb(225, 20, 27);
+
+    .wall{border: 0.1cm solid rgb(29, 29, 200);
             text-align: center;
-            background-color: rgb(252, 67, 5);
+            background-color: rgb(132, 185, 222);
         }
-    .list{border: 30px solid rgb(9, 115, 50);
+
+    .list{border: 0.1cm solid rgb(29, 29, 200);
             text-align: center;
-            background-color: rgb(115, 191, 108);
+            background-color: rgb(132, 185, 222);
         }
+
     ol {
         display: flex;
         flex-direction: column;
         align-items: center;
     }
+
     ul {
         display: flex;
         flex-direction: column;
         align-items: center;
     }
+  
+    .googlesearch {
+        background-color: rgb(132, 185, 222);
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+    }
+    button:hover {
+        opacity: 0.5;
+    }
+    #suprisetroll {
+            display:none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: fill;
+            z-index: 9999;  
+        }
+
+    
