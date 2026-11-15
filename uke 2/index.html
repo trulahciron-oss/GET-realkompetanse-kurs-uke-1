@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oppgave 2</title>
+</head>
+<!-- alt i style, kan flyttes til style.css mappa-->
+<style>
+    .darkMode {
+        background-color: black;
+        color: aliceblue
+    }
+
+    .loginCard {
+        position: absolute;
+        top: 7px;
+        right: 7px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+       
+    }
+   
+    #matteSpørsmål {
+      display: none;
+      margin-top: 20px;
+      right: 40px;
+
+    }
+  
+    .errorText {
+      color: red;
+      margin-top: 5px;  
+    }
+
+    .svarFelt {
+       width: 30px;
+    text-align: center;
+    font-size: 1.1rem;
+    }
+
+    #resultatText {
+    margin-top: 15px;
+    font-weight: bold;
+    }
+    
+
+
+</style>
+<body>
+    <!--starter med begge før man trykker 1 gang?--> 
+ <button onclick="togglemode(this)">darkmode / lightmode</button>
+
+ <h1>mattematikk</h1>
+ <h3>login for spørsmål</h3>
+ 
+<div class="loginCard">
+  <input type="text" id="inputUsername" placeholder="username"/>
+  <input type="text" id="inputPassword" placeholder="password"/>
+  <button onclick="showMessage()"> log in</button>
+  <div id="loginMessage" class="errorText"></div>
+</div>
+
+<!--< og > skrives som (<&lt og >&gt) så det ikke blir lest som ny html tag-->
+ <div id="matteSpørsmål" display: none; margin-top: 20px; font-size: 1.2rem;">
+  <h2 id="poengVisning">Points: 0</h2>
+      <p>fyll inn &gt; eller &lt;</p>
+
+      <p>
+        <span id="tall1">0</span> 
+        <input type="text" id="svar1" class="svarFelt" maxlength="2"> 
+        <span id="tall2">0</span>
+    </p>
+
+    <!-- Spørsmål 2 -->
+    <p>
+        <span id="tall3">0</span> 
+        <input type="text" id="svar2" class="svarFelt" maxlength="2"> 
+        <span id="tall4">0</span>
+    </p>
+
+    <!-- Spørsmål 3 -->
+    <p>
+        <span id="tall5">0</span> 
+        <input type="text" id="svar3" class="svarFelt" maxlength="2"> 
+        <span id="tall6">0</span>
+    </p>
+ 
+      <button onclick="sjekkSvar()">sjekk svar</button>
+      <button onclick="resetSpill()">reset</button>
+
+      <div id="resultatText"></div>
+    </div>
+
+
+<script>
+
+  function togglemode(knapp) {
+    document.body.classList.toggle("darkMode");
+    
+    // Eksempel på bruk av parameteren for å endre tekst på knappen
+    if (document.body.classList.contains("darkMode")) {
+        knapp.textContent = "Bytt til Lightmode";
+    } else {
+        knapp.textContent = "Bytt til Darkmode";
+    }
+}
+
+        let points = 0;
+        let number1 = 0;
+        let number2 = 0;
+        let tall 
+
+        function resetSpill() {
+          number1 = Math.floor(Math.random() *10 ) + 1;
+          number2 = Math.floor(Math.random() *10 ) + 1;
+        
+          document.getElementById("tall1Visning").textContent = number1;
+          document.getElementById("tall2Visning").textContent = number2;
+          document.getElementById("svarInput").value = "";
+          document.getElementById("resultatText").textContent = "";
+        }
+
+        function showMessage() {
+            const username = document.getElementById("inputUsername").value;
+            const password = document.getElementById("inputPassword").value;
+            
+            const mathContainer = document.getElementById("matteSpørsmål");
+            const messageBox = document.getElementById("loginMessage");
+
+            if (username === "admin" && password === "admin") {
+                mathContainer.style.display = "block";
+                // fjerner feilmelding vi man skriver riktig pass/bruker
+                messageBox.textContent = ""; 
+             
+                resetSpill();
+                }
+            else {
+                mathContainer.style.display = "none";
+                messageBox.textContent = "Feil brukernavn eller passord!";
+            }
+          }
+
+
+        // når denne function gråes ut så stopper alle knapper?
+        function sjekkSvar() {
+        //Henter det som er skrevet isvar boksene 
+            const s1 = document.getElementById("svar1").value.trim();           
+            const s2 = document.getElementById("svar2").value.trim();
+            const s3 = document.getElementById("svar3").value.trim();
+            let poeng = 0;
+        }
+
+    // ser om svar er riktig
+     if (number1 > number2) {
+        riktigOperator = ">";
+    } else if (number1 < number2) {
+        riktigOperator = "<";
+    } else {
+        riktigOperator = "==";
+    }
+
+    const resultatBoks = document.getElementById("resultattext");
+
+    if (brukerSvar === riktigOperator) {
+        resultatBoks.textContent = "Riktig!";
+        points += 1; // Gir 1 poeng
+    } else {
+        resultatBoks.textContent = "Feil! Riktig svar var " + riktigOperator;
+        points -= 1; // Trekker fra 1 poeng
+
+        // Oppdaterer poengsummen på skjermen
+    document.getElementById("poengVisning").textContent = "Points: " + points;
+    }
+
+
+    
+  
+</script>
+
+
+</body>
+</html>
+

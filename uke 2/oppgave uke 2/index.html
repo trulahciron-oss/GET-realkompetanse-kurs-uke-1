@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oppgave 2</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<!-- alt i style, kan flyttes til style.css mappa-->
+<style>
+    
+
+
+</style>
+<body>
+
+<button onclick="togglemode(this)"> Bytt til darkmode</button>
+
+<h1>mattematikk</h1>
+<h3>login for spørsmål</h3>
+
+<div class="loginCard">
+    <input type="text" id="inputUsername" placeholder="username"/>
+    <input type="password" id="inputPassword" placeholder="password"/>
+    <button onclick="showMessage()"> log in</button>
+    <div id="loginMessage" class="errorText"></div>
+</div>
+
+<!--< og > skrives som (<&lt og >&gt) så det ikke blir lest som ny html tag-->
+<div id="matteSpørsmål">
+    <h2 id="poengVisning">Points: 0</h2>
+    <p>fyll inn &gt;, &lt; eller ==</p>
+
+   <!-- spørsmål -->
+    <p>
+        <span id="tall1">0</span> 
+        <input type="text" id="svar1" class="svarFelt" maxlength="2"> 
+        <span id="tall2">0</span>
+    </p>
+    <p>
+        <span id="tall3">0</span> 
+        <input type="text" id="svar2" class="svarFelt" maxlength="2"> 
+        <span id="tall4">0</span>
+    </p>
+    <p>
+        <span id="tall5">0</span> 
+        <input type="text" id="svar3" class="svarFelt" maxlength="2"> 
+        <span id="tall6">0</span>
+    </p>
+   
+    <button onclick="sjekkSvar()">sjekk svar</button>
+    <button onclick="resetSpill()">reset</button>
+
+    <div id="resultatText"></div>
+</div>
+
+<script>
+    // Gjør så du kan skru av og på darkmode
+    function togglemode(knapp) {
+        document.body.classList.toggle("darkMode");
+        
+        if (document.body.classList.contains("darkMode")) {
+            knapp.textContent = "Bytt til Lightmode";
+        } else {
+            knapp.textContent = "Bytt til Darkmode";
+        }
+    }
+
+    // Variabler for poeng og tallene våre
+    let points = 0;
+    
+    let number1 = 0, number2 = 0;
+    let number3 = 0, number4 = 0;
+    let number5 = 0, number6 = 0;
+
+    // Reset-funksjonen lager nye tilfeldige tall for alle 3 feltene
+    function resetSpill() {
+        number1 = Math.floor(Math.random() * 10) + 1;
+        number2 = Math.floor(Math.random() * 10) + 1;
+        number3 = Math.floor(Math.random() * 10) + 1;
+        number4 = Math.floor(Math.random() * 10) + 1;
+        number5 = Math.floor(Math.random() * 10) + 1;
+        number6 = Math.floor(Math.random() * 10) + 1;
+    
+        // Sender tallene inn i de nummererte span-elementene i HTML
+        document.getElementById("tall1").textContent = number1;
+        document.getElementById("tall2").textContent = number2;
+        document.getElementById("tall3").textContent = number3;
+        document.getElementById("tall4").textContent = number4;
+        document.getElementById("tall5").textContent = number5;
+        document.getElementById("tall6").textContent = number6;
+
+        // Tømmer input-boksene og resultatteksten
+        document.getElementById("svar1").value = "";
+        document.getElementById("svar2").value = "";
+        document.getElementById("svar3").value = "";
+        document.getElementById("resultatText").textContent = "";
+    }
+
+    // Sjekker brukernavn og passord
+    function showMessage() {
+        const username = document.getElementById("inputUsername").value;
+        const password = document.getElementById("inputPassword").value;
+        
+        const mathContainer = document.getElementById("matteSpørsmål");
+        const messageBox = document.getElementById("loginMessage");
+
+        if (username === "admin" && password === "admin") {
+            mathContainer.style.display = "block";
+            messageBox.textContent = ""; 
+           
+            // resetter slik at tallene dukker opp med en gang man logger inn
+            resetSpill();
+        } else {
+            mathContainer.style.display = "none";
+            messageBox.textContent = "Feil brukernavn eller passord!";
+        }
+    }
+
+    // Sjekker svarene når brukeren trykker "sjekk svar"
+    function sjekkSvar() {
+        // Henter det som er skrevet i de tre svar-boksene
+        const s1 = document.getElementById("svar1").value.trim();          
+        const s2 = document.getElementById("svar2").value.trim();
+        const s3 = document.getElementById("svar3").value.trim();
+
+        // Finner ut fasiten for spørsmål 1
+        let fasit1 = "";
+        if (number1 > number2) {
+            fasit1 = ">";
+        } else if (number1 < number2) {
+            fasit1 = "<";
+        } else {
+            fasit1 = "==";
+        }
+
+        // Finner ut fasiten for spørsmål 2
+        let fasit2 = "";
+        if (number3 > number4) {
+            fasit2 = ">";
+        } else if (number3 < number4) {
+            fasit2 = "<";
+        } else {
+            fasit2 = "==";
+        }
+
+        // Finner ut fasiten for spørsmål 3
+        let fasit3 = "";
+        if (number5 > number6) {
+            fasit3 = ">";
+        } else if (number5 < number6) {
+            fasit3 = "<";
+        } else {
+            fasit3 = "==";
+        }
+
+        let antallRiktige = 0;
+
+        // Sjekker svarene 
+        if (s1 === fasit1) {
+            points += 1;
+            antallRiktige++;
+        } else {
+            points -= 1;
+        }
+
+        if (s2 === fasit2) {
+            points += 1;
+            antallRiktige++;
+        } else {
+            points -= 1;
+        }
+
+        if (s3 === fasit3) {
+            points += 1;
+            antallRiktige++;
+        } else {
+            points -= 1;
+        }
+
+        // viser resultatet og oppdaterer poengsummen på skjermen
+        const resultatBoks = document.getElementById("resultatText");
+        resultatBoks.textContent = "Du fikk " + antallRiktige + " av 3 riktige!";
+        
+        document.getElementById("poengVisning").textContent = "Points: " + points;
+    }
+</script>
+
+</body>
+</html>
