@@ -73,27 +73,34 @@
     let number3 = 0, number4 = 0;
     let number5 = 0, number6 = 0;
 
-    // Reset-funksjonen lager nye tilfeldige tall for alle 3 feltene
-    function resetSpill() {
-        number1 = Math.floor(Math.random() * 10) + 1;
-        number2 = Math.floor(Math.random() * 10) + 1;
-        number3 = Math.floor(Math.random() * 10) + 1;
-        number4 = Math.floor(Math.random() * 10) + 1;
-        number5 = Math.floor(Math.random() * 10) + 1;
-        number6 = Math.floor(Math.random() * 10) + 1;
     
-        // Sender tallene inn i de nummererte span-elementene i HTML
-        document.getElementById("tall1").textContent = number1;
-        document.getElementById("tall2").textContent = number2;
-        document.getElementById("tall3").textContent = number3;
-        document.getElementById("tall4").textContent = number4;
-        document.getElementById("tall5").textContent = number5;
-        document.getElementById("tall6").textContent = number6;
+    // Reset-funksjonen lager nye tilfeldige tall for alle 3 feltene
+   // --- NYE HJELPEFUNKSJONER (DRY-prinsippet) ---
+    function generateNumber(elementId) {
+        let randNum = Math.floor(Math.random() * 10) + 1;
+        document.getElementById(elementId).textContent = randNum;
+        return randNum;
+    }
 
-        // Tømmer input-boksene og resultatteksten
-        document.getElementById("svar1").value = "";
-        document.getElementById("svar2").value = "";
-        document.getElementById("svar3").value = "";
+    function clearInput(elementId) {
+        document.getElementById(elementId).value = "";
+    }
+    // ---------------------------------------------
+    
+    // Reset-funksjonen bruker nå hjelpefunksjonene i stedet for gjentakende kode
+    function resetSpill() {
+        number1 = generateNumber("tall1");
+        number2 = generateNumber("tall2");
+        number3 = generateNumber("tall3");
+        number4 = generateNumber("tall4");
+        number5 = generateNumber("tall5");
+        number6 = generateNumber("tall6");
+    
+        // Tømmer input-boksene ved hjelp av hjelpefunksjonen
+        clearInput("svar1");
+        clearInput("svar2");
+        clearInput("svar3");
+
         document.getElementById("resultatText").textContent = "";
     }
 
@@ -117,71 +124,42 @@
         }
     }
 
+    // --- HJELPEFUNKSJON FOR Å SJEKKE ÉT SVAR ---
+    function evaluateSingleAnswer(n1, n2, userAnswer) {
+        let correctSign = "";
+        if (n1 > n2) {
+            correctSign = ">";
+        } else if (n1 < n2) {
+            correctSign = "<";
+        } else {
+            correctSign = "==";
+        }
+
+        if (userAnswer === correctSign) {
+            points += 1;
+            return 1;
+        } else {
+            points -= 1;
+            return 0;
+        }
+    }
+
     // Sjekker svarene når brukeren trykker "sjekk svar"
     function sjekkSvar() {
-        // Henter det som er skrevet i de tre svar-boksene
-        const s1 = document.getElementById("svar1").value.trim();          
+        const s1 = document.getElementById("svar1").value.trim();            
         const s2 = document.getElementById("svar2").value.trim();
         const s3 = document.getElementById("svar3").value.trim();
 
-        // Finner ut fasiten for spørsmål 1
-        let fasit1 = "";
-        if (number1 > number2) {
-            fasit1 = ">";
-        } else if (number1 < number2) {
-            fasit1 = "<";
-        } else {
-            fasit1 = "==";
-        }
-
-        // Finner ut fasiten for spørsmål 2
-        let fasit2 = "";
-        if (number3 > number4) {
-            fasit2 = ">";
-        } else if (number3 < number4) {
-            fasit2 = "<";
-        } else {
-            fasit2 = "==";
-        }
-
-        // Finner ut fasiten for spørsmål 3
-        let fasit3 = "";
-        if (number5 > number6) {
-            fasit3 = ">";
-        } else if (number5 < number6) {
-            fasit3 = "<";
-        } else {
-            fasit3 = "==";
-        }
-
         let antallRiktige = 0;
 
-        // Sjekker svarene 
-        if (s1 === fasit1) {
-            points += 1;
-            antallRiktige++;
-        } else {
-            points -= 1;
-        }
+        // Kjører hjelpefunksjonen for alle tre feltene
+        antallRiktige += evaluateSingleAnswer(number1, number2, s1);
+        antallRiktige += evaluateSingleAnswer(number3, number4, s2);
+        antallRiktige += evaluateSingleAnswer(number5, number6, s3);
 
-        if (s2 === fasit2) {
-            points += 1;
-            antallRiktige++;
-        } else {
-            points -= 1;
-        }
-
-        if (s3 === fasit3) {
-            points += 1;
-            antallRiktige++;
-        } else {
-            points -= 1;
-        }
-
-        // viser resultatet og oppdaterer poengsummen på skjermen
+        // Viser resultatet på skjermen
         const resultatBoks = document.getElementById("resultatText");
         resultatBoks.textContent = "Du fikk " + antallRiktige + " av 3 riktige!";
-        
         document.getElementById("poengVisning").textContent = "Points: " + points;
     }
 </script>
