@@ -75,10 +75,16 @@
 
     
     // funksjonen lager nye tilfeldige tall for alle 3 spørmålene
+    function generateNumber(elementById) {
         let randNum = Math.floor(Math.random() * 10) + 1;
-        document.getElementById(elementId).textContent = randNum;
+        document.getElementById(elementById).textContent = randNum;
         return randNum;
     }
+    //funksjonen reger på svarene
+    function getAnswerValue(elementId) {
+        return document.getElementById(elementId).value.trim();
+    }   
+
 
     function clearInput(elementId) {
         document.getElementById(elementId).value = "";
@@ -144,9 +150,9 @@
 
     // Sjekker svarene når brukeren trykker "sjekk svar"
     function sjekkSvar() {
-        const s1 = document.getElementById("svar1").value.trim();            
-        const s2 = document.getElementById("svar2").value.trim();
-        const s3 = document.getElementById("svar3").value.trim();
+        const s1 = getAnswerValue("svar1");            
+        const s2 = getAnswerValue("svar2");
+        const s3 = getAnswerValue("svar3");
 
         let antallRiktige = 0;
 
