@@ -72,22 +72,22 @@ function oppdaterTemaOgKnappTekst() {
       <div class="menu-box">
         <img src="${pizza1}" alt="Pizza">
         <p class="price">${pris1} kr</p>
-        <button onclick="handleLeggTil('Pizza', ${pris1})">Legg til (${pris1} kr)</button>
+        <button id="pizza" onclick="handleLeggTil('Pizza', ${pris1})">Legg til (${pris1} kr)</button>
       </div>
       <div class="menu-box">
         <img src="${taco2}" alt="Taco">
         <p class="price">${pris2} kr</p>
-        <button onclick="handleLeggTil('Taco', ${pris2})">Legg til (${pris2} kr)</button>
+        <button id="taco" onclick="handleLeggTil('Taco', ${pris2})">Legg til (${pris2} kr)</button>
       </div>
       <div class="menu-box">
         <img src="${pasta3}" alt="Pasta">
         <p class="price">${pris3} kr</p>
-        <button onclick="handleLeggTil('Pasta', ${pris3})">Legg til (${pris3} kr)</button>
+        <button id="pasta" onclick="handleLeggTil('Pasta', ${pris3})">Legg til (${pris3} kr)</button>
       </div>
       <div class="menu-box">
         <img src="${gryte4}" alt="Gryte">
         <p class="price">${pris4} kr</p>
-        <button onclick="handleLeggTil('Gryte', ${pris4})">Legg til (${pris4} kr)</button>
+        <button id="gryte" onclick="handleLeggTil('Gryte', ${pris4})">Legg til (${pris4} kr)</button>
       </div>
     </div>
   `;
@@ -109,6 +109,12 @@ function handleToggleKurv() {
   updateView();
 }
 
+function registrerKnappMedThis() {
+  if (this) {
+    sistKlikketId = this.id;
+  }
+}
+
 function handleLeggTil(navn, pris, knapp) {
   totalPris = totalPris + pris;
   antallIKurv = antallIKurv + 1;
@@ -119,18 +125,6 @@ function handleLeggTil(navn, pris, knapp) {
   updateView();
 }
 
-function beregnBetaling() {
-  if (harRabatt) {
-    return totalPris * 0.7;
-  } else {
-    return totalPris;
-  }
-}
-function registrerKnappMedThis() {
-  if (this) {
-    sistKlikketId = this.id;
-  }
-}
 function handleBrukRabatt(kode) {
   if (kode.trim().toLowerCase() === "sulten") {
     harRabatt = true;
@@ -138,6 +132,14 @@ function handleBrukRabatt(kode) {
     harRabatt = false;
   }
   updateView();
+}
+
+function beregnBetaling() {
+  if (harRabatt) {
+    return totalPris * 0.7;
+  } else {
+    return totalPris;
+  }
 }
 
 updateView();
