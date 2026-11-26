@@ -1,0 +1,56 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f5ef;
+  color: #263c30;
+  margin: 0;
+  padding: 24px;
+  text-align: center;
+}
+main {
+  max-width: 500px;
+  margin: auto;
+}
+.board {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4px;
+  max-width: 400px;
+  margin: 20px auto;
+}
+.square {
+  aspect-ratio: 1;
+  background-color: #dce8d6;
+  border: 1px solid #a3b69b;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+}
+.player { background-color: #f6d365; }
+.treasure { background-color: #9bd5a5; }
+.status {
+  background-color: white;
+  padding: 12px;
+  border-radius: 8px;
+  min-height: 24px;
+}
+.won { background-color: #9bd5a5; }
+.dpad {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  margin: 20px auto;
+}
+.dpad-middle { display: flex; gap: 5px; }
+button {
+  padding: 10px;
+  background-color: white;
+  border: 2px solid #a3b69b;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.dpad button { width: 50px; height: 50px; font-size: 24px; }
+button:hover { background-color: #dce8d6; }
+.restart { font-size: 16px; }
